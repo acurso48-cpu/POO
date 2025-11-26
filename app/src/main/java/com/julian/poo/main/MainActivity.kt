@@ -16,7 +16,12 @@ import com.julian.poo.examples.ConfiguracionApp
 import com.julian.poo.examples.Persona
 import com.julian.poo.examples.Producto
 import com.julian.poo.examples.Usuario
+import com.julian.poo.exercises.AppConfig
+import com.julian.poo.exercises.Articulo
 import com.julian.poo.exercises.CitaActivity
+import com.julian.poo.exercises.Cuadrado
+import com.julian.poo.exercises.Email
+import com.julian.poo.exercises.Libro
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,19 +45,26 @@ class MainActivity : AppCompatActivity() {
         val buttonGoToEx2 = findViewById<Button>(R.id.btn_go_to_ex2)
         buttonGoToEx2.setOnClickListener {
             Log.d("MainActivity", "Button clicked")
+            //     val intent = Intent(this, CitaActivity::class.java)
+            //     startActivity(intent)
+        }
+
+        val buttonGoToCita = findViewById<Button>(R.id.btn_cita)
+        buttonGoToCita.setOnClickListener {
             val intent = Intent(this, CitaActivity::class.java)
             startActivity(intent)
         }
 
+
         val miCoche = Coche("Volvo")
         val miCoche2 = Coche("BMW", 50)
-        val miCoche3 = Coche( velocidad = 85, marca = "Seat")
+        val miCoche3 = Coche(velocidad = 85, marca = "Seat")
         miCoche.acelerar(100)
         miCoche2.acelerar(10)
         Log.i("Coche", "Marca: ${miCoche.marca}, Velocidad: ${miCoche.velocidad} ")
         Log.i("Coche", "Marca: ${miCoche2.marca}, Velocidad: ${miCoche2.velocidad} ")
         Log.i("Coche", "Marca: ${miCoche3.marca}, Velocidad: ${miCoche3.velocidad} ")
-       // Log.e("Coche", "Error del sistema global")
+        // Log.e("Coche", "Error del sistema global")
 
         val persona1 = Persona("Manolo", 25)
         val persona2 = Persona("José")
@@ -64,20 +76,20 @@ class MainActivity : AppCompatActivity() {
             Log.i("Usuario", user1.toString())
             val user2 = Usuario("")
 
-        } catch (e : IllegalArgumentException){
+        } catch (e: IllegalArgumentException) {
             Log.e("Usuario", e.message.toString())
         }
 
         //Ejemplo data class
 
-        val producto1 = Producto( 1, "Móvil", 520.0)
+        val producto1 = Producto(1, "Móvil", 520.0)
         //Copia modificada
-        val producto2 = producto1.copy(id =3 , nombre = "Celular")
+        val producto2 = producto1.copy(id = 3, nombre = "Celular")
         Log.i("Producto", producto1.toString())
         Log.i("Producto", producto2.toString())
 
         val (id1, nombre1, precio1) = producto1
-        val ( _ , nombre2, precio2) = producto2
+        val (_, nombre2, precio2) = producto2
         val nombre14 = producto2.component2() // "Celular"
         val nombre15 = producto2.nombre // "Celular"
 
@@ -86,8 +98,47 @@ class MainActivity : AppCompatActivity() {
         ConfiguracionApp.temaOscuro = false
         ConfiguracionApp.inicializar() //Invocando un método del objeto
 
+        //Ejercicio Cuadradado
 
+        val cuadrado = Cuadrado(7.0)
+        val area = cuadrado.imprimirArea()
+        println("Area: $area")
 
+        //Ejercicio Artículo
+
+        val articulo1 = Articulo("Camiseta", 25.0)
+        val articulo2 = Articulo("Pantalón")
+
+        Log.i("Articulo", "Nombre: ${articulo1.nombre}, Precio: ${articulo1.precio}")
+        Log.i("Articulo", "Nombre: ${articulo2.nombre}, Precio: ${articulo2.precio}")
+
+        //Ejercicio Email
+
+        try {
+            val email1 = Email("william.rufus.day@example-pet-store.com")
+            val email2 = Email("alfredmoo@reexample.com")
+        } catch (e: IllegalArgumentException) {
+            Log.e("Email", e.message.toString())
+        }
+
+        //Ejercicio Libro
+
+        val libro1 = Libro("El Quijote", "Cervantes")
+        val libro2 = libro1.copy(autor = "Borges")
+        Log.i("Libro", libro1.toString())
+        Log.i("Libro", "Libro: ${libro2.libro}, Autor: ${libro2.autor}")
+
+        AppConfig.imprimirVersion()
 
     }
+
+
+
+
+
+
+
+
+
+
 }
